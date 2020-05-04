@@ -10,9 +10,9 @@ pip install numpy
 
 Steps to use - 
 1. git clone https://github.com/abdulwaheedsoudagar/blur-face.git 
-2. python blur_face.py --image image.jpg --factor 1
+2. python blur_face.py --image DonaldTrump.jpg --factor 1
 <br><br>
 factor starts from 1 <br><br>
-1 => more blur<br>
-9 => more blur<br>
+1 => More blur<br>
+9 => Less blur<br>
 
