@@ -32,7 +32,7 @@ def main():
         _, file_extension = os.path.splitext(file)
         _, file_extension_1 = os.path.splitext(file)
         file_extension = file_extension.lstrip('.')
-        Log.print_yellow(f"file_extensionfile_extensionfile_extension {file_extension}")
+        Log.print_yellow(f"file_extensionfile_extensionfile_extension {file_extension_1}")
         print('vars.target_extensionsvars.target_extensions',vars.target_extensions)
         if file_extension_1 in ['ai_bot.py','chat_gpt.py','line_comment.py','line_comment.py','repository.py','github.py'
                     ,'env_vars.py','git.py','log.py','github_reviewer.py']:
@@ -58,7 +58,7 @@ def main():
         Log.print_green(f"Asking AI. Content Len:{len(file_content)} Diff Len: {len(file_diffs)}")
         response = ai.ai_request_diffs(code=file_content, diffs=file_diffs)
 
-        log_file.write(f"{separator}{file_content}{separator}{file_diffs}{separator}{response}{separator}")
+        log_file.write(f"-------------- {response}")
 
         if AiBot.is_no_issues_text(response):
             Log.print_green("File looks good. Continue", file)
