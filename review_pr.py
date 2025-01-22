@@ -7,7 +7,7 @@ openai.api_key = os.getenv("OPENAI_API_KEY")
 
 # Fetch PR details from environment variables
 GITHUB_REPOSITORY = os.getenv("GITHUB_REPOSITORY")
-PR_NUMBER = os.getenv("GITHUB_REF").split('/')[-1]
+PR_NUMBER = os.getenv("GITHUB_REF").split('/')[-2]
 
 def get_pr_diff(repo, pr_number, token):
     """Fetch the diff of a pull request."""
