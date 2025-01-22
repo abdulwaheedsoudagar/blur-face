@@ -56,6 +56,11 @@ def main():
             Log.print_red("Diffs are empty")
         
         Log.print_green(f"Asking AI. Content Len:{len(file_content)} Diff Len: {len(file_diffs)}")
+
+        print('sdfsdfdffffffffffffffffffff11')
+        print(file_diffs)
+        print('sdfsdfdffffffffffffffffffff22')
+
         response = ai.ai_request_diffs(code=file_content, diffs=file_diffs)
 
         # log_file.write(f"-------------- {response}")
