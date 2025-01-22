@@ -32,9 +32,9 @@ jobs:
         env:
           GITHUB_HEAD_REF: ${{ github.head_ref }}
           GITHUB_BASE_REF: ${{ github.base_ref }}
-          CHATGPT_KEY: ${{ secrets.CHATGPT_KEY }}
+          CHATGPT_KEY: ${{ secrets.OPENAI_API_KEY }}
           CHATGPT_MODEL: ${{ secrets.CHATGPT_MODEL }}
-          GITHUB_TOKEN: ${{ secrets.API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           TARGET_EXTENSIONS: ${{ vars.TARGET_EXTENSIONS }}
           REPO_OWNER: ${{ github.repository_owner }}
           REPO_NAME: ${{ github.event.repository.name }}
