@@ -57,16 +57,27 @@ def generate_comment_for_line(filename, diff, line_number):
 
     Provide a detailed and actionable comment for line {line_number}, if necessary.
     """
-    response = openai.ChatCompletion.create(
-        model="gpt-4",
-        messages=[
-            {"role": "system", "content": "You are a professional code reviewer."},
-            {"role": "user", "content": prompt},
+    # response = openai.ChatCompletion.create(
+    #     model="gpt-4",
+    #     messages=[
+    #         {"role": "system", "content": "You are a professional code reviewer."},
+    #         {"role": "user", "content": prompt},
+    #     ],
+    #     temperature=0.5,
+    #     max_tokens=300,
+    # )
+
+    response = client.chat.completions.create(
+            model='gpt-3.5-turbo',
+            messages=[
+            {"role": "system", "content": "You are a helpful code reviewer."},
+            {"role": "user", "content": prompt}
         ],
-        temperature=0.5,
-        max_tokens=300,
-    )
-    return response.choices[0].message["content"]
+            max_completion_tokens=1000,
+            temperature=0.3
+        )
+    return response.choices[0].message.content.strip()
+    # return response.choices[0].message["content"]
 
 
 def post_comment(repo, pr_number, filename, line_number, comment, token):
