@@ -3,8 +3,9 @@ import openai
 import requests
 
 # Set OpenAI API key
-openai.api_key = os.getenv("OPENAI_API_KEY")
-
+# openai.api_key = os.getenv("OPENAI_API_KEY")
+from openai import OpenAI
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 # Fetch PR details from environment variables
 GITHUB_REPOSITORY = os.getenv("GITHUB_REPOSITORY")
 PR_NUMBER = os.getenv("GITHUB_REF").split('/')[-2]
