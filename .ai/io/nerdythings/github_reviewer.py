@@ -31,9 +31,12 @@ def main():
 
         _, file_extension = os.path.splitext(file)
         file_extension = file_extension.lstrip('.')
-        if False:
-            Log.print_yellow(f"Skipping, unsuported extension {file_extension} file {file}")
-            continue
+        print('vars.target_extensionsvars.target_extensions',vars.target_extensions)
+        if file in ['ai_bot.py','chat_gpt.py','line_comment.py','line_comment.py','repository.py','github.py'
+                    ,'env_vars.py','git.py','log.py']:
+            if file_extension not in vars.target_extensions:
+                Log.print_yellow(f"Skipping, unsuported extension {file_extension} file {file}")
+                continue
 
         try:
             with open(file, 'r') as file_opened:
