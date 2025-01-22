@@ -117,9 +117,11 @@ if __name__ == "__main__":
             continue
 
         # Parse the patch for line-specific feedback
-        lines = patch.split("\n")
-        for i, line in enumerate(lines):
+        diff_lines = patch.split("\n")
+        position = 1  # Position in the diff starts at 1
+        for line in diff_lines:
             if line.startswith("+") and not line.startswith("+++"):
                 # Generate a comment for each added line
-                comment = generate_comment_for_line(filename, patch, i + 1)
-                post_comment(GITHUB_REPOSITORY, PR_NUMBER, filename, i + 1, comment, token)
+                comment = generate_comment_for_line(filename, patch, position)
+                post_comment(GITHUB_REPOSITORY, PR_NUMBER, filename, position, comment, token)
+            position += 1
