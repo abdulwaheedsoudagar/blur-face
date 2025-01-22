@@ -45,7 +45,9 @@ Full code from the file:
         
         lines = input.strip().split("\n")
         models = []
-
+        print('-00000000000000000000000000000')
+        print(lines)
+        print('-00000000000000000000000000000')
         for full_text in lines:
             number_str = ''
             number = 0

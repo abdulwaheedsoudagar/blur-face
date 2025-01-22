@@ -30,13 +30,15 @@ def main():
         Log.print_green("Checking file", file)
 
         _, file_extension = os.path.splitext(file)
+        _, file_extension_1 = os.path.splitext(file)
         file_extension = file_extension.lstrip('.')
+        Log.print_yellow(f"file_extensionfile_extensionfile_extension {file_extension_1}")
         print('vars.target_extensionsvars.target_extensions',vars.target_extensions)
-        if file in ['ai_bot.py','chat_gpt.py','line_comment.py','line_comment.py','repository.py','github.py'
-                    ,'env_vars.py','git.py','log.py']:
-            if file_extension not in vars.target_extensions:
-                Log.print_yellow(f"Skipping, unsuported extension {file_extension} file {file}")
-                continue
+        if file_extension_1 in ['ai_bot.py','chat_gpt.py','line_comment.py','line_comment.py','repository.py','github.py'
+                    ,'env_vars.py','git.py','log.py','github_reviewer.py']:
+            # if file_extension not in vars.target_extensions:
+            Log.print_yellow(f"Skipping, unsuported extension {file_extension} file {file}")
+            continue
 
         try:
             with open(file, 'r') as file_opened:
@@ -56,7 +58,10 @@ def main():
         Log.print_green(f"Asking AI. Content Len:{len(file_content)} Diff Len: {len(file_diffs)}")
         response = ai.ai_request_diffs(code=file_content, diffs=file_diffs)
 
-        log_file.write(f"{separator}{file_content}{separator}{file_diffs}{separator}{response}{separator}")
+        # log_file.write(f"-------------- {response}")
+        print('---------------------------------ggggg')
+        print(response)
+        print('---------------------------------ggggg')
 
         if AiBot.is_no_issues_text(response):
             Log.print_green("File looks good. Continue", file)
@@ -94,7 +99,7 @@ def post_general_comment(github: GitHub, file: str, text:str) -> bool:
     try:
         message = f"{file}\n{text}"
         git_response = github.post_comment_general(message)
-        Log.print_yellow("Posted general", git_response)
+        # Log.print_yellow("Posted general", git_response)
         return True
     except RepositoryError:
         Log.print_red("Failed general comment")
