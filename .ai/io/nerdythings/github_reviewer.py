@@ -58,7 +58,10 @@ def main():
         Log.print_green(f"Asking AI. Content Len:{len(file_content)} Diff Len: {len(file_diffs)}")
         response = ai.ai_request_diffs(code=file_content, diffs=file_diffs)
 
-        log_file.write(f"-------------- {response}")
+        # log_file.write(f"-------------- {response}")
+        print('---------------------------------ggggg')
+        print(response)
+        print('---------------------------------ggggg')
 
         if AiBot.is_no_issues_text(response):
             Log.print_green("File looks good. Continue", file)
@@ -96,7 +99,7 @@ def post_general_comment(github: GitHub, file: str, text:str) -> bool:
     try:
         message = f"{file}\n{text}"
         git_response = github.post_comment_general(message)
-        Log.print_yellow("Posted general", git_response)
+        # Log.print_yellow("Posted general", git_response)
         return True
     except RepositoryError:
         Log.print_red("Failed general comment")
