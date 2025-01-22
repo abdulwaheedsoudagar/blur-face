@@ -36,9 +36,9 @@ def main():
         print('vars.target_extensionsvars.target_extensions',vars.target_extensions)
         if file_extension_1 in ['ai_bot.py','chat_gpt.py','line_comment.py','line_comment.py','repository.py','github.py'
                     ,'env_vars.py','git.py','log.py','github_reviewer.py']:
-            if file_extension not in vars.target_extensions:
-                Log.print_yellow(f"Skipping, unsuported extension {file_extension} file {file}")
-                continue
+            # if file_extension not in vars.target_extensions:
+            Log.print_yellow(f"Skipping, unsuported extension {file_extension} file {file}")
+            continue
 
         try:
             with open(file, 'r') as file_opened:
