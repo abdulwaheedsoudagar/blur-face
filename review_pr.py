@@ -17,16 +17,36 @@ def get_pr_diff(repo, pr_number, token):
     response.raise_for_status()
     return response.json()
 
+# def generate_review(diff):
+#     """Use ChatGPT to generate a review."""
+#     response = openai.ChatCompletion.create(
+#         model="gpt-3.5-turbo",
+#         messages=[
+#             {"role": "system", "content": "You are a helpful code reviewer."},
+#             {"role": "user", "content": f"Review the following code diff:\n{diff}"}
+#         ]
+#     )
+#     return response['choices'][0]['message']['content']
+
 def generate_review(diff):
     """Use ChatGPT to generate a review."""
-    response = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo",
-        messages=[
+    try:
+        response = client.chat.completions.create(
+            model='gpt-3.5-turbo',
+            messages=[
             {"role": "system", "content": "You are a helpful code reviewer."},
             {"role": "user", "content": f"Review the following code diff:\n{diff}"}
-        ]
-    )
-    return response['choices'][0]['message']['content']
+        ],
+            max_completion_tokens=max_tokens,
+            temperature=temperature
+        )
+        return response.choices[0].message.content.strip()
+        # return response['choices'][0]['message']['content']
+    except Exception as e:
+        # Handle errors gracefully
+        print(f"An error occurred: {e}")
+        return "Error: Unable to generate the review."
+
 
 def post_review(repo, pr_number, review, token):
     """Post the review as a comment on the PR."""
