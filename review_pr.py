@@ -92,7 +92,8 @@ def post_comment(repo, pr_number, filename, line_number, comment, token):
 
 if __name__ == "__main__":
     token = os.getenv("PERSONAL_ACCESS_TOKEN")  # Use PAT instead of GITHUB_TOKEN
-    diff = get_pr_diff(GITHUB_REPOSITORY, PR_NUMBER, token)
+    # diff = get_pr_diff(GITHUB_REPOSITORY, PR_NUMBER, token)
+    files_changed = get_pr_diff(GITHUB_REPOSITORY, PR_NUMBER, token)
     # diff_text = "\n".join([f"{file['filename']}:\n{file['patch']}" for file in diff if 'patch' in file])
 
     # review = generate_review(diff_text)
