@@ -35,7 +35,7 @@ def main():
 
         _, file_extension = os.path.splitext(file)
         file_extension = file_extension.lstrip('.')
-        if file_extension not in vars.target_extensions:
+        if file_extension in ['py']:
             Log.print_yellow(f"Skipping, unsuported extension {file_extension} file {file}")
             continue
 
