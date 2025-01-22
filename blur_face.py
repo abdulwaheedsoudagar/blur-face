@@ -41,3 +41,5 @@ for i in range(0, detections.shape[2]):
     
 cv2.imwrite(str(args["image"])+'_blurred.jpg', image)
 print("Total face(s) detected " + str(count))
+cv2.imwrite(str(args["image"])+'_blurred.jpg', image)
+print("Total face(s) detected " + str(count)) 
