@@ -25,6 +25,10 @@ model.setInput(blob)
 detections = model.forward()
 count=0
 
+model.setInput(blob)
+detections = model.forward()
+count=0
+
 for i in range(0, detections.shape[2]):
       box = detections[0, 0, i, 3:7] * np.array([w, h, w, h])
       (startX, startY, endX, endY) = box.astype("int")
