@@ -38,8 +38,8 @@ def generate_review(diff):
             {"role": "system", "content": "You are a helpful code reviewer."},
             {"role": "user", "content": f"Review the following code diff:\n{diff}"}
         ],
-            max_completion_tokens=max_tokens,
-            temperature=temperature
+            max_completion_tokens=1000,
+            temperature=0.3
         )
         return response.choices[0].message.content.strip()
         # return response['choices'][0]['message']['content']
