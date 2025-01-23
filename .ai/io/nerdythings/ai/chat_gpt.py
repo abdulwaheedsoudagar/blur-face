@@ -17,7 +17,7 @@ class ChatGPT(AiBot):
                 }
             ],
             model = self.__chat_gpt_model,
-            stream = True,
+            stream = False,
         )
         content = []
         for chunk in stream:

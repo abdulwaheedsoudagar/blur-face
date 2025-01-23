@@ -6,15 +6,16 @@ class AiBot(ABC):
     __no_response = "No critical issues found"
     __problems="errors, issues, potential crashes or unhandled exceptions"
     __chat_gpt_ask_long="""
-Could you describe briefly 
+Analyze the following code and git diffs. 
 
-1. Potential bugs, errors, and vulnerbilities.
-2. Suggest improvements in logic, Structure and efficiency.
-3. Inefficient code and recommand optimizations
+1. Identify actual bugs, errors, and vulnerabilities that could cause incorrect or unintended behavior during execution. 
+2. Suggest improvements in logic, structure, and efficiency only if there are clear, actionable changes.
+3. Highlight inefficient code and recommend optimizations only if they improve measurable performance or maintainability.
 
- for the next code with given git diffs? 
-Please, also, do not add intro words, just print errors in the format: "line_number : cause effect"
-If there are no {problems} just say "{no_response}".
+Rules:
+- Do not speculate or suggest changes based on valid assumptions or hypothetical scenarios unless explicitly relevant.
+- Use the format "line_number: cause effect".
+- If there are no issues, write "{no_response}" and nothing else.
 
 DIFFS:
 
@@ -23,6 +24,7 @@ DIFFS:
 Full code from the file:
 
 {code}
+
 """
 
     @abstractmethod
