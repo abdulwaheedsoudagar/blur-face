@@ -18,13 +18,13 @@ orig = image.copy()
 blob = cv2.dnn.blobFromImage(cv2.resize(image, (300, 300)), 1.0, (300, 300), (104.0, 177.0, 123.0))
 
 model.setInput(blob)
-detections = model.forward()
+detections123555 = model.forward()
 count=0
 
-for i in range(0, detections.shape[2]):
-      box = detections[0, 0, i, 3:7] * np.array([w, h, w, h])
+for i in range(0, detections123555.shape[2]):
+      box = detections123555[0, 0, i, 3:7] * np.array([w, h, w, h])
       (startX, startY, endX, endY) = box.astype("int")
-      confidence = detections[0, 0, i, 2]
+      confidence = detections123555[0, 0, i, 2]
       
       if (confidence > 0.4):
             

@@ -11,6 +11,9 @@ Analyze the following code and git diffs.
 1. Identify actual bugs, errors, and vulnerabilities that could cause incorrect or unintended behavior during execution. 
 2. Suggest improvements in logic, structure, and efficiency only if there are clear, actionable changes.
 3. Highlight inefficient code and recommend optimizations only if they improve measurable performance or maintainability.
+4. Check fo adherence to style guides( example PEP8, Google Java Style Guide).
+5. Suggest fixes for identifided vulnerabiltes.
+6. Ensure code comments and documentation area sufficient and relavent.
 
 Rules:
 - Do not speculate or suggest changes based on valid assumptions or hypothetical scenarios unless explicitly relevant.
