@@ -17,7 +17,9 @@ Analyze the following code and git diffs.
 
 Rules:
 - Do not speculate or suggest changes based on valid assumptions or hypothetical scenarios unless explicitly relevant.
-- Use the format "line_number: cause effect".
+- Use the format "line_number: cause effect" for comments.
+- Use the format "### Recommendations -  ###" for recommendations, if any.
+- Do not give complete code Snippet.
 - If there are no issues, write "{no_response}" and nothing else.
 
 DIFFS:

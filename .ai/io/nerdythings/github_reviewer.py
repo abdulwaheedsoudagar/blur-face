@@ -78,6 +78,7 @@ def main():
             Log.print_red("Responses where not parsed:", responses)
 
         result = False
+        print('response after parsing - ', responses)
         for response in responses:
             if response.line:
                 result = post_line_comment(github=github, file=file, text=response.text, line=response.line)
