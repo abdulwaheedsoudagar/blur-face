@@ -34,7 +34,7 @@ def main():
         file_extension = file_extension.lstrip('.')
         Log.print_yellow(f"file_extensionfile_extensionfile_extension {file_extension_1}")
         print('vars.target_extensionsvars.target_extensions',vars.target_extensions)
-        if file_extension_1 in ['.ai/io/nerdythings/ai/ai_bot.py','.ai/io/nerdythings/ai/chat_gpt.py','.ai/io/nerdythings/ai/line_comment.py',
+        if file in ['.ai/io/nerdythings/ai/ai_bot.py','.ai/io/nerdythings/ai/chat_gpt.py','.ai/io/nerdythings/ai/line_comment.py',
                                 '.ai/io/nerdythings/repository/repository.py','.ai/io/nerdythings/repository/github.py'
                                 ,'.ai/io/nerdythings/env_vars.py','.ai/io/nerdythings/git.py','.ai/io/nerdythings/log.py',
                                 '.ai/io/nerdythings/github_reviewer.py']:
