@@ -21,10 +21,6 @@ DIFFS:
 
 {diffs}
 
-Full code from the file:
-
-{code}
-
 """
 
     @abstractmethod
