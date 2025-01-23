@@ -21,7 +21,7 @@ class ChatGPT(AiBot):
         )
         print(stream)
         # content = []
-        content = stream["choices"][0]["message"]["content"]
+        content = stream.choices[0].message.content
         # for chunk in stream:
         #     if chunk.choices[0].delta.content:
         #         content.append(chunk.choices[0].delta.content)
