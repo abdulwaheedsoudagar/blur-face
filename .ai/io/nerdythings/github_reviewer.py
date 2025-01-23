@@ -72,6 +72,7 @@ def main():
 
         if AiBot.is_no_issues_text(response):
             Log.print_green("File looks good. Continue", file)
+            result = post_general_comment(github=github, file=file, text=response.text)
         else:
             responses = AiBot.split_ai_response(response)
             if len(responses) == 0:
