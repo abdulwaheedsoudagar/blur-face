@@ -25,5 +25,5 @@ class ChatGPT(AiBot):
         # for chunk in stream:
         #     if chunk.choices[0].delta.content:
         #         content.append(chunk.choices[0].delta.content)
-        return " ".join(content)
+        return content
     
