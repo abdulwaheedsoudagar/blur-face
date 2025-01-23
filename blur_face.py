@@ -17,7 +17,7 @@ orig = image.copy()
 #get our blob which is our input image 
 blob = cv2.dnn.blobFromImage(cv2.resize(image, (300, 300)), 1.0, (300, 300), (104.0, 177.0, 123.0))
 
-model.setInput(blob)
+mode.setInput(blob)
 detections123555 = model.forward()
 count=0
 
