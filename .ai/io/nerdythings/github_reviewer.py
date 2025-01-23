@@ -34,8 +34,10 @@ def main():
         file_extension = file_extension.lstrip('.')
         Log.print_yellow(f"file_extensionfile_extensionfile_extension {file_extension_1}")
         print('vars.target_extensionsvars.target_extensions',vars.target_extensions)
-        if file_extension_1 in ['ai_bot.py','chat_gpt.py','line_comment.py','line_comment.py','repository.py','github.py'
-                    ,'env_vars.py','git.py','log.py','github_reviewer.py']:
+        if file_extension_1 in ['.ai/io/nerdythings/ai/ai_bot.py','.ai/io/nerdythings/ai/chat_gpt.py','.ai/io/nerdythings/ai/line_comment.py',
+                                '.ai/io/nerdythings/repository/repository.py','.ai/io/nerdythings/repository/github.py'
+                                ,'.ai/io/nerdythings/env_vars.py','.ai/io/nerdythings/git.py','.ai/io/nerdythings/log.py',
+                                '.ai/io/nerdythings/github_reviewer.py']:
             # if file_extension not in vars.target_extensions:
             Log.print_yellow(f"Skipping, unsuported extension {file_extension} file {file}")
             continue
