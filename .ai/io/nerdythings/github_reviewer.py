@@ -70,22 +70,21 @@ def main():
         print(response)
         print('---------------------------------ggggg')
 
-        if AiBot.is_no_issues_text(response):
-            Log.print_green("File looks good. Continue", file)
-            result = post_general_comment(github=github, file=file, text=response.text)
-        else:
-            responses = AiBot.split_ai_response(response)
-            if len(responses) == 0:
-                Log.print_red("Responses where not parsed:", responses)
+        # if AiBot.is_no_issues_text(response):
+        #     Log.print_green("File looks good. Continue", file)
+        # else:
+        responses = AiBot.split_ai_response(response)
+        if len(responses) == 0:
+            Log.print_red("Responses where not parsed:", responses)
 
-            result = False
-            for response in responses:
-                if response.line:
-                    result = post_line_comment(github=github, file=file, text=response.text, line=response.line)
-                if not result:
-                    result = post_general_comment(github=github, file=file, text=response.text)
-                if not result:
-                    raise RepositoryError("Failed to post any comments.")
+        result = False
+        for response in responses:
+            if response.line:
+                result = post_line_comment(github=github, file=file, text=response.text, line=response.line)
+            if not result:
+                result = post_general_comment(github=github, file=file, text=response.text)
+            # if not result:
+            #     raise RepositoryError("Failed to post any comments.")
                     
 def post_line_comment(github: GitHub, file: str, text:str, line: int):
     Log.print_green("Posting line", file, line, text)
