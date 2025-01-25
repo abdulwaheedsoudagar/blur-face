@@ -27,7 +27,6 @@ for i in range(0, detections123555.shape[2]):
       confidence = detections123555[0, 0, i, 2]
       
       if (confidence > 0.4):
-            
         face = image[startY:endY, startX:endX]       
       
         kW = int(w / int(args["factor"]))

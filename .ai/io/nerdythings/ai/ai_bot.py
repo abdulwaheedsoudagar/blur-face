@@ -18,7 +18,7 @@ Analyze the following code and Git diffs based on these guidelines:
 Rules:
 - No speculation: Avoid hypothetical scenarios or assumptions unless explicitly relevant.
 - Map Line Numbers Correctly: When analyzing the Git diff, calculate the actual line numbers in the full file by adjusting based on the diff context. Ensure the comments align with the original file's line numbers.
-- Format for Comments: Use the exact start line number from the original file, No range:  [line_number: <cause effect>] 
+- Format for Comments: Use the exact start line number from the original file, No range, also give short explaination how you are getting the line nmber:  [line_number: <cause effect>] 
 - No Complete Code: Do not include complete code snippets.
 - Do not give complete code Snippet, any other.
 - If there are no issues, write "{no_response}" and nothing else.
