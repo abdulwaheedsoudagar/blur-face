@@ -17,7 +17,8 @@ Analyze the following code and Git diffs based on these guidelines:
 
 Rules:
 - No speculation: Avoid hypothetical scenarios or assumptions unless explicitly relevant.
-- Return the exact line which need to be comment in this format [linw : comment], in this format.
+- Return the exact line which need to be comment in this format [line : comment], in this format.
+    example - [mode.setInput(blob) : mode.setInput(blob) should be model.setInput(blob) to match the variable name in the earlier definition. This is a critical bug that will result in a runtime error.]
 - No Complete Code: Do not include complete code snippets.
 - Do not give complete code Snippet, any other.
 - If there are no issues, write "{no_response}" and nothing else.
