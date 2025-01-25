@@ -17,7 +17,7 @@ Analyze the following code and Git diffs based on these guidelines:
 
 Rules:
 - No speculation: Avoid hypothetical scenarios or assumptions unless explicitly relevant.
-- Format for Comments: Use the exact line number from the original file: { line_number: <cause effect> }
+- Format for Comments: Use the exact line number from the original file:  [line_number: <cause effect>] 
 - No Complete Code: Do not include complete code snippets.
 - Do not give complete code Snippet, any other.
 - If there are no issues, write "{no_response}" and nothing else.
