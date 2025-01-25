@@ -6,19 +6,19 @@ class AiBot(ABC):
     __no_response = "No critical issues found"
     __problems="errors, issues, potential crashes or unhandled exceptions"
     __chat_gpt_ask_long="""
-Analyze the following code and git diffs. 
+Analyze the following code and Git diffs based on these guidelines:
 
-1. Identify actual bugs, errors, and vulnerabilities that could cause incorrect or unintended behavior during execution. 
-2. Suggest improvements in logic, structure, and efficiency only if there are clear, actionable changes.
-3. Highlight inefficient code and recommend optimizations only if they improve measurable performance or maintainability.
-4. Check fo adherence to style guides( example PEP8, Google Java Style Guide).
-5. Suggest fixes for identifided vulnerabiltes.
-6. Ensure code comments and documentation area sufficient and relavent.
+1. Identify actual bugs, errors, and vulnerabilities: Highlight issues that may cause incorrect or unintended behavior during execution.
+2. Suggest improvements in logic, structure, and efficiency: Recommend changes only when clear and actionable, avoiding unnecessary speculation.
+3. Highlight inefficient code: Propose optimizations that measurably improve performance or maintainability.
+4. Adherence to style guides: Verify compliance with applicable coding standards (e.g., PEP8, Google Java Style Guide).
+5. Fix vulnerabilities: Provide specific recommendations to address any identified security concerns.
+6. Evaluate comments and documentation: Ensure they are sufficient, relevant, and aligned with the code.
 
 Rules:
-- Do not speculate or suggest changes based on valid assumptions or hypothetical scenarios unless explicitly relevant.
-- Use the format use correct line number based on original file, "line_number: cause effect" for comments.
-- Use the format "### Recommendations -  ### < your comments> ### END of Recommendations -  ###" for recommendations, if any.
+- No speculation: Avoid hypothetical scenarios or assumptions unless explicitly relevant.
+- Format for Comments: Use the exact line number from the original file: "line_number: <cause effect>"
+- No Complete Code: Do not include complete code snippets.
 - Do not give complete code Snippet, any other.
 - If there are no issues, write "{no_response}" and nothing else.
 
