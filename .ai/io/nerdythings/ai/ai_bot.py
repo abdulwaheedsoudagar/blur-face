@@ -17,7 +17,7 @@ Analyze the following code and Git diffs based on these guidelines:
 
 Rules:
 - No speculation: Avoid hypothetical scenarios or assumptions unless explicitly relevant.
-- Return the line which need to be comment [code line: comment], in this format.
+- Return the exact line which need to be comment in this format [linw : comment], in this format.
 - No Complete Code: Do not include complete code snippets.
 - Do not give complete code Snippet, any other.
 - If there are no issues, write "{no_response}" and nothing else.
