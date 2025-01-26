@@ -100,8 +100,9 @@ def main():
             # print(response)
             # print(dir(response))
             # if response.line:
+                linenumber = next((k for k, v in code_line.items() if v == response['line']), None)
                 print('dsdfsdfsdf')
-                print(response['line'])
+                print(linenumber)
                 print(response['comment'])
                 print('dsdfsdfsdf')
                 # result = post_line_comment(github=github, file=file, text=response.text, line=response.line)
