@@ -85,17 +85,16 @@ def main():
         #     Log.print_red("Responses where not parsed:", responses)
 
         result = False
-        import json
+        import ast
         # print('response after parsing - ', responses)
         print(type(responses))
         print(responses[0])
-        responses = json.loads(responses)
+        responses = ast.literal_eval(responses)
         for response in responses:
             print(response)
             print(dir(response))
             if response.line:
                 print('dsdfsdfsdf')
-                # responses = ast.literal_eval(responses[0])
                 print(response.text)
                 print('dsdfsdfsdf')
                 # result = post_line_comment(github=github, file=file, text=response.text, line=response.line)
