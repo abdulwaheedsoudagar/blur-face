@@ -120,7 +120,7 @@ def main():
             print(linenumber)
             print(response['comment'])
             print('dsdfsdfsdf')
-            # result = post_line_comment(github=github, file=file, text=response['comment'], line=linenumber)
+            result = post_line_comment(github=github, file=file, text=response['comment'], line=linenumber)
                     
 def post_line_comment(github: GitHub, file: str, text:str, line: int):
     Log.print_green("Posting line", file, line, text)

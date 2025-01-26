@@ -15,6 +15,7 @@ class GitHub(Repository):
 
     def post_comment_to_line(self, text, commit_id, file_path, line):
         headers = self.__header_accept_json | self.__header_authorization
+        print('file_pathfile_pathfile_path',file_path)
         body = {
             "body": text,
             "commit_id": commit_id,
