@@ -89,7 +89,8 @@ def main():
         # print('response after parsing - ', responses)
         print(type(responses))
         print(responses[0])
-        responses = re.sub(r":.*?undefined.*?\.?\]", "", responses)
+        # responses = re.sub(r":.*?undefined.*?\.?\]", "", responses)
+        responses = responses.replace('json','')
         responses = ast.literal_eval(responses)
         for response in responses:
             print(response)
