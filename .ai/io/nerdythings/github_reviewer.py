@@ -92,27 +92,21 @@ def main():
 
         responses = ast.literal_eval(responses)
         for response in responses:
+            # linenumber = next((k for k, v in code_line.items() if normalize_string(v) == normalize_string(response['line'])), None)
+
             for k, v in code_line.items():
                 if are_similar(v, response['line']):
                     linenumber = k
                     break
 
-            # Retry mechanism
-            attempt = 0
-            max_attempts = 3
-            result = False  # Initialize result
-
-            while attempt < max_attempts and not result:
-                print(f"Attempt {attempt + 1}: Posting comment on line {linenumber}")
-                result = post_line_comment(github=github, file=file, text=response['comment'], line=linenumber)
-
-                if not result:
-                    print(f"Failed to post comment on line {linenumber}, retrying with linenumber - 1")
-                    linenumber -= 1  # Decrement line number for retry
-                attempt += 1
-
-            if not result:
-                print(f"Failed to post comment after {max_attempts} attempts for line {linenumber + attempt - 1}")
+            print('dsdfsdfsdf')
+            print(response['line'])
+            print(response['comment'])
+            print(linenumber)
+            
+            result = post_line_comment(github=github, file=file, text=response['comment'], line=linenumber)
+            print(result)
+            print('dsdfsdfsdf')
 
                     
 def post_line_comment(github: GitHub, file: str, text:str, line: int):
