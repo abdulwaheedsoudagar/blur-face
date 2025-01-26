@@ -85,10 +85,11 @@ def main():
         #     Log.print_red("Responses where not parsed:", responses)
 
         result = False
-        import ast
+        import ast, re
         # print('response after parsing - ', responses)
         print(type(responses))
         print(responses[0])
+        responses = re.sub(r":.*?undefined.*?\.?\]", "", responses)
         responses = ast.literal_eval(responses)
         for response in responses:
             print(response)
