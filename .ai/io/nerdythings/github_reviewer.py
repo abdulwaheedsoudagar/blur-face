@@ -97,15 +97,12 @@ def main():
         print(responses)
         print(responses[0])
         for response in responses:
-            # print(response)
-            # print(dir(response))
-            # if response.line:
-                linenumber = next((k for k, v in code_line.items() if v == response['line']), None)
-                print('dsdfsdfsdf')
-                print(linenumber)
-                print(response['comment'])
-                print('dsdfsdfsdf')
-                # result = post_line_comment(github=github, file=file, text=response.text, line=response.line)
+            linenumber = next((k for k, v in code_line.items() if v == response['line']), None)
+            print('dsdfsdfsdf')
+            print(linenumber)
+            print(response['comment'])
+            print('dsdfsdfsdf')
+            result = post_line_comment(github=github, file=file, text=response['comment'], line=linenumber)
             # if not result:
             #     result = post_general_comment(github=github, file=file, text=response.text)
             # if not result:
