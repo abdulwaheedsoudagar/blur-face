@@ -1,4 +1,6 @@
 import os
+import ast
+import re
 from git import Git 
 from pathlib import Path
 from ai.chat_gpt import ChatGPT
@@ -11,31 +13,8 @@ from repository.repository import RepositoryError
 separator = "\n\n----------------------------------------------------------------------\n\n"
 log_file = open('output.txt', 'a')
 
-def merge_code_with_diff(file_content, diff):
-    original_lines = [line.strip("\n") for line in file_content]
-    merged_code = []
-    diff_lines = diff.split("\n")
-    original_index = 0
-
-    for line in diff_lines:
-        if line.startswith("@@"):
-            # Context marker, e.g., @@ -17,21 +17,16 @@
-            merged_code.append(line)
-        elif line.startswith("-"):
-            # Removed line
-            merged_code.append(f"- {original_lines[original_index]}")
-            original_index += 1
-        elif line.startswith("+"):
-            # Added line
-            merged_code.append(f"+ {line[1:].strip()}")
-        else:
-            # Unchanged line
-            if original_index < len(original_lines):
-                merged_code.append(f"  {original_lines[original_index]}")
-                original_index += 1
-
-    return "\n".join(merged_code)
-
+def normalize_string(s):
+    return re.sub(r'\\+', r'\\', s.replace('\\"', '"').replace("\\'", "'"))
 
 def main():
     vars = EnvVars()
@@ -100,14 +79,14 @@ def main():
 
         responses = response
 
-        import ast, re
+        
         responses = responses.replace('json','')
         print('1111111111111')
         print(responses)
         print('111111111111')
         responses = ast.literal_eval(responses)
         for response in responses:
-            linenumber = next((k for k, v in code_line.items() if v == response['line']), None)
+            linenumber = next((k for k, v in code_line.items() if normalize_string(v) == normalize_string(response['line'])), None)
             print('dsdfsdfsdf')
             print(response['line'])
             print(response['comment'])
