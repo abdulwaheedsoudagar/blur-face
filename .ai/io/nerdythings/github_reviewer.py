@@ -11,6 +11,32 @@ from repository.repository import RepositoryError
 separator = "\n\n----------------------------------------------------------------------\n\n"
 log_file = open('output.txt', 'a')
 
+def merge_code_with_diff(file_content, diff):
+    original_lines = [line.strip("\n") for line in file_content]
+    merged_code = []
+    diff_lines = diff.split("\n")
+    original_index = 0
+
+    for line in diff_lines:
+        if line.startswith("@@"):
+            # Context marker, e.g., @@ -17,21 +17,16 @@
+            merged_code.append(line)
+        elif line.startswith("-"):
+            # Removed line
+            merged_code.append(f"- {original_lines[original_index]}")
+            original_index += 1
+        elif line.startswith("+"):
+            # Added line
+            merged_code.append(f"+ {line[1:].strip()}")
+        else:
+            # Unchanged line
+            if original_index < len(original_lines):
+                merged_code.append(f"  {original_lines[original_index]}")
+                original_index += 1
+
+    return "\n".join(merged_code)
+
+
 def main():
     vars = EnvVars()
     vars.check_vars()
@@ -78,19 +104,23 @@ def main():
 
         responses = response
         print('ffffffffffffffffffffff')
-        print(responses)
+        print(file)
         print('ffffffffffffffffffffff')
+
+        print('merged code')
+        print(merge_code_with_diff(file_content, file_diffs))
+        print('mergedcodeeee')
         result = False
         import ast, re
         responses = responses.replace('json','')
         responses = ast.literal_eval(responses)
-        # for response in responses:
-        #     linenumber = next((k for k, v in code_line.items() if v == response['line']), None)
-        #     print('dsdfsdfsdf')
-        #     print(linenumber)
-        #     print(response['comment'])
-        #     print('dsdfsdfsdf')
-        #     result = post_line_comment(github=github, file=file, text=response['comment'], line=linenumber)
+        for response in responses:
+            linenumber = next((k for k, v in code_line.items() if v == response['line']), None)
+            print('dsdfsdfsdf')
+            print(linenumber)
+            print(response['comment'])
+            print('dsdfsdfsdf')
+            # result = post_line_comment(github=github, file=file, text=response['comment'], line=linenumber)
                     
 def post_line_comment(github: GitHub, file: str, text:str, line: int):
     Log.print_green("Posting line", file, line, text)
