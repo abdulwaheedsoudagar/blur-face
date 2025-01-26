@@ -48,7 +48,6 @@ def main():
                 file_content = file_opened.readlines()
 
             for line_number, line_content in enumerate(file_content, start=1):
-                print(f"{line_number}: {line_content.strip()}")
                 code_line[line_number] = line_content.strip()
         except FileNotFoundError:
             Log.print_yellow("File was removed. Continue.", file)
@@ -64,18 +63,7 @@ def main():
         
         Log.print_green(f"Asking AI. Content Len:{len(file_content)} Diff Len: {len(file_diffs)}")
 
-        # print('sdfsdfdffffffffffffffffffff11')
-        # print(file_diffs)
-        # print('sdfsdfdffffffffffffffffffff22')
-        # print(file_content)
-        # print('----------------222222333333')
-
         response = ai.ai_request_diffs(code=file_content, diffs=file_diffs)
-
-        # log_file.write(f"-------------- {response}")
-        print('---------------------------------ggggg')
-        print(response)
-        print('---------------------------------ggggg')
 
         responses = response
 
@@ -90,10 +78,6 @@ def main():
             print(response['comment'])
             print('dsdfsdfsdf')
             result = post_line_comment(github=github, file=file, text=response['comment'], line=linenumber)
-            # if not result:
-            #     result = post_general_comment(github=github, file=file, text=response.text)
-            # if not result:
-            #     raise RepositoryError("Failed to post any comments.")
                     
 def post_line_comment(github: GitHub, file: str, text:str, line: int):
     Log.print_green("Posting line", file, line, text)
