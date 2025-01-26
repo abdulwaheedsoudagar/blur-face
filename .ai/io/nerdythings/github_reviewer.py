@@ -43,8 +43,13 @@ def main():
             continue
 
         try:
+            code_line = {}
             with open(file, 'r') as file_opened:
                 file_content = file_opened.read()
+
+            for line_number, line_content in enumerate(file_content, start=1):
+                print(f"{line_number}: {line_content.strip()}")
+                code_line[line_number] = line_content.strip()
         except FileNotFoundError:
             Log.print_yellow("File was removed. Continue.", file)
             continue
@@ -75,17 +80,21 @@ def main():
         # if AiBot.is_no_issues_text(response):
         #     Log.print_green("File looks good. Continue", file)
         # else:
-        responses = AiBot.split_ai_response(response)
-        if len(responses) == 0:
-            Log.print_red("Responses where not parsed:", responses)
+        responses = response
+        # if len(responses) == 0:
+        #     Log.print_red("Responses where not parsed:", responses)
 
         result = False
-        print('response after parsing - ', responses)
+        import ast
+        # print('response after parsing - ', responses)
+        
         for response in responses:
             if response.line:
+                # responses = ast.literal_eval(responses[0])
+                print(response.text)
                 result = post_line_comment(github=github, file=file, text=response.text, line=response.line)
-            if not result:
-                result = post_general_comment(github=github, file=file, text=response.text)
+            # if not result:
+            #     result = post_general_comment(github=github, file=file, text=response.text)
             # if not result:
             #     raise RepositoryError("Failed to post any comments.")
                     
