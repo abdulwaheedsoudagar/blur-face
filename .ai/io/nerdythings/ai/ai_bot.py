@@ -5,7 +5,7 @@ class AiBot(ABC):
     
     __no_response = "No critical issues found"
     __problems="errors, issues, potential crashes or unhandled exceptions"
-    __chat_gpt_ask_long=r"""
+    __chat_gpt_ask_long="""
 Analyze the following code and Git diffs based on these guidelines:
 
 1. Identify actual bugs, errors, and vulnerabilities: Highlight issues that may cause incorrect or unintended behavior during execution.
@@ -19,17 +19,26 @@ Rules:
 - No speculation: Avoid hypothetical scenarios or assumptions unless explicitly relevant.
 - Make sure json struture is format.
 - Return the exact line which need to be comment in json format line : comment, in this format.
-    example - [{"line": "mode.setInput(blob)", "comment":"mode.setInput(blob) should be model.setInput(blob) to match the variable name in the earlier definition. This is a critical bug that will result in a runtime error.."},{another json object othre comments..}] 
+    example - [
+  {{
+    "line": "mode.setInput(blob)",
+    "comment": "mode.setInput(blob) should be model.setInput(blob) to match the variable name in the earlier definition. This is a critical bug that will result in a runtime error."
+  }},
+  {{
+    "line": "another.line.example",
+    "comment": "Another issue description here."
+  }}
+]
 - Do not add json word in the begining.
 - No Complete Code: Do not include complete code snippets.
 - Do not give complete code Snippet, any other.
 
 DIFFS:
-""" + str(diffs) + """
+{diff}
 
 Full code from the file:
 
-""" + str(code)
+ {code}"""
 
     @abstractmethod
     def ai_request_diffs(self, code, diffs) -> str:
