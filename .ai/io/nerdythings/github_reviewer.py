@@ -109,9 +109,9 @@ def main():
         print('ffffffffffffffffffffff')
         print(response)
 
-        print('merged code')
-        # print(merge_code_with_diff(file_content, file_diffs))
-        print('mergedcodeeee')
+        # print('merged code')
+        # # print(merge_code_with_diff(file_content, file_diffs))
+        # print('mergedcodeeee')
         result = False
         import ast, re
         responses = responses.replace('json','')
