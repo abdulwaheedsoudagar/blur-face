@@ -89,6 +89,7 @@ def main():
         # print('response after parsing - ', responses)
         print(type(responses))
         print(responses[0])
+        print(type(responses))
         # responses = re.sub(r":.*?undefined.*?\.?\]", "", responses)
         responses = responses.replace('json','')
         responses = ast.literal_eval(responses)
@@ -97,11 +98,12 @@ def main():
             print(dir(response))
             if response.line:
                 print('dsdfsdfsdf')
-                print(response.text)
+                print(response.text['line'])
+                print(response.text['comment'])
                 print('dsdfsdfsdf')
                 # result = post_line_comment(github=github, file=file, text=response.text, line=response.line)
-            if not result:
-                result = post_general_comment(github=github, file=file, text=response.text)
+            # if not result:
+            #     result = post_general_comment(github=github, file=file, text=response.text)
             # if not result:
             #     raise RepositoryError("Failed to post any comments.")
                     
