@@ -45,7 +45,7 @@ def main():
         try:
             code_line = {}
             with open(file, 'r') as file_opened:
-                file_content = file_opened.read()
+                file_content = file_opened.readlines()
 
             for line_number, line_content in enumerate(file_content, start=1):
                 print(f"{line_number}: {line_content.strip()}")
@@ -92,7 +92,7 @@ def main():
             if response.line:
                 # responses = ast.literal_eval(responses[0])
                 print(response.text)
-                result = post_line_comment(github=github, file=file, text=response.text, line=response.line)
+                # result = post_line_comment(github=github, file=file, text=response.text, line=response.line)
             # if not result:
             #     result = post_general_comment(github=github, file=file, text=response.text)
             # if not result:
