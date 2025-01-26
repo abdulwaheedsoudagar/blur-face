@@ -83,7 +83,9 @@ def main():
         except FileNotFoundError:
             Log.print_yellow("File was removed. Continue.", file)
             continue
-
+        print('dddddddddddddd')
+        print(code_line)
+        print('dddddddddddddd')
         if len( file_content ) == 0: 
             Log.print_red("File is empty")
             continue
