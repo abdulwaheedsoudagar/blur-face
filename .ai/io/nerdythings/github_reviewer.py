@@ -89,12 +89,16 @@ def main():
         # print('response after parsing - ', responses)
         
         for response in responses:
+            print(response)
+            print(dir(response))
             if response.line:
+                print('dsdfsdfsdf')
                 # responses = ast.literal_eval(responses[0])
                 print(response.text)
+                print('dsdfsdfsdf')
                 # result = post_line_comment(github=github, file=file, text=response.text, line=response.line)
-            # if not result:
-            #     result = post_general_comment(github=github, file=file, text=response.text)
+            if not result:
+                result = post_general_comment(github=github, file=file, text=response.text)
             # if not result:
             #     raise RepositoryError("Failed to post any comments.")
                     
