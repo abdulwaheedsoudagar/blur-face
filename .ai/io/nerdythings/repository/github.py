@@ -1,7 +1,8 @@
 import requests
 from repository.repository import Repository, RepositoryError
 
-class GitHub(Repository):
+
+class GitHub(Repository): 
 
     def __init__(self, token, repo_owner, repo_name, pull_number):
         self.token = token
