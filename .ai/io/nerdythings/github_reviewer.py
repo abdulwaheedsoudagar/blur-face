@@ -88,18 +88,21 @@ def main():
         import ast, re
         # print('response after parsing - ', responses)
         print(type(responses))
-        print(responses[0])
-        print(type(responses))
+        
+        
         # responses = re.sub(r":.*?undefined.*?\.?\]", "", responses)
         responses = responses.replace('json','')
         responses = ast.literal_eval(responses)
+        print(type(responses))
+        print(responses)
+        print(responses[0])
         for response in responses:
             # print(response)
             # print(dir(response))
             # if response.line:
                 print('dsdfsdfsdf')
-                print(response.text['line'])
-                print(response.text['comment'])
+                print(response['line'])
+                print(response['comment'])
                 print('dsdfsdfsdf')
                 # result = post_line_comment(github=github, file=file, text=response.text, line=response.line)
             # if not result:
