@@ -6,9 +6,23 @@ class AiBot(ABC):
     __no_response = "No critical issues found"
     __problems="errors, issues, potential crashes or unhandled exceptions"
     __chat_gpt_ask_long="""
-Could you describe briefly {problems} for the next code with given git diffs? 
-Please, also, do not add intro words, just print errors in the format: "line_number : cause effect"
-If there are no {problems} just say "{no_response}".
+Analyze the following code and Git diffs based on these guidelines:
+
+1. Identify actual bugs, errors, and vulnerabilities: Highlight issues that may cause incorrect or unintended behavior during execution.
+2. Suggest improvements in logic, structure, and efficiency: Recommend changes only when clear and actionable, avoiding unnecessary speculation.
+3. Highlight inefficient code: Propose optimizations that measurably improve performance or maintainability.
+4. Adherence to style guides: Verify compliance with applicable coding standards (e.g., PEP8, Google Java Style Guide).
+5. Fix vulnerabilities: Provide specific recommendations to address any identified security concerns.
+6. Evaluate comments and documentation: Ensure they are sufficient, relevant, and aligned with the code.
+
+Rules:
+- No speculation: Avoid hypothetical scenarios or assumptions unless explicitly relevant.
+- Return the exact line which need to be comment in json format line : comment, in this format.
+    example - json of mode.setInput(blob) : mode.setInput(blob) should be model.setInput(blob) to match the variable name in the earlier definition. This is a critical bug that will result in a runtime error.. another json object othre comments..
+- Do not add json word in the begining.
+- No Complete Code: Do not include complete code snippets.
+- Do not give complete code Snippet, any other.
+- If there are no issues, write "{no_response}" and nothing else.
 
 DIFFS:
 
@@ -17,6 +31,7 @@ DIFFS:
 Full code from the file:
 
 {code}
+
 """
 
     @abstractmethod

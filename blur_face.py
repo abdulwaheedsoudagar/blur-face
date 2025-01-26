@@ -17,21 +17,16 @@ orig = image.copy()
 #get our blob which is our input image 
 blob = cv2.dnn.blobFromImage(cv2.resize(image, (300, 300)), 1.0, (300, 300), (104.0, 177.0, 123.0))
 
-model.setInput(blob)
-detections = model.forward()
+mode.setInput(blob)
+detections123555 = model.forward()
 count=0
 
-model.setInput(blob)
-detections = model.forward()
-count=0
-
-for i in range(0, detections.shape[2]):
-      box = detections[0, 0, i, 3:7] * np.array([w, h, w, h])
+for i in range(0, detections123555.shape[2]):
+      box = detections123555[0, 0, i, 3:7] * np.array([w, h, w, h])
       (startX, startY, endX, endY) = box.astype("int")
-      confidence = detections[0, 0, i, 2]
+      confidence = detections123555[0, 0, i, 2]
       
       if (confidence > 0.4):
-            
         face = image[startY:endY, startX:endX]       
       
         kW = int(w / int(args["factor"]))
@@ -45,6 +40,5 @@ for i in range(0, detections.shape[2]):
         count = count + 1
     
 cv2.imwrite(str(args["image"])+'_blurred.jpg', image)
-print("Total face(s) detected " + str(count))
 cv2.imwrite(str(args["image"])+'_blurred.jpg', image)
-print("Total face(s) detected " + str(count)) 
+# print("Total face(s) detected " + str(count))

@@ -11,6 +11,32 @@ from repository.repository import RepositoryError
 separator = "\n\n----------------------------------------------------------------------\n\n"
 log_file = open('output.txt', 'a')
 
+def merge_code_with_diff(file_content, diff):
+    original_lines = [line.strip("\n") for line in file_content]
+    merged_code = []
+    diff_lines = diff.split("\n")
+    original_index = 0
+
+    for line in diff_lines:
+        if line.startswith("@@"):
+            # Context marker, e.g., @@ -17,21 +17,16 @@
+            merged_code.append(line)
+        elif line.startswith("-"):
+            # Removed line
+            merged_code.append(f"- {original_lines[original_index]}")
+            original_index += 1
+        elif line.startswith("+"):
+            # Added line
+            merged_code.append(f"+ {line[1:].strip()}")
+        else:
+            # Unchanged line
+            if original_index < len(original_lines):
+                merged_code.append(f"  {original_lines[original_index]}")
+                original_index += 1
+
+    return "\n".join(merged_code)
+
+
 def main():
     vars = EnvVars()
     vars.check_vars()
@@ -34,15 +60,26 @@ def main():
         file_extension = file_extension.lstrip('.')
         Log.print_yellow(f"file_extensionfile_extensionfile_extension {file_extension_1}")
         print('vars.target_extensionsvars.target_extensions',vars.target_extensions)
-        if file_extension_1 in ['ai_bot.py','chat_gpt.py','line_comment.py','line_comment.py','repository.py','github.py'
-                    ,'env_vars.py','git.py','log.py','github_reviewer.py']:
+        if file in ['.ai/io/nerdythings/ai/ai_bot.py',
+                    '.ai/io/nerdythings/ai/chat_gpt.py',
+                    '.ai/io/nerdythings/ai/line_comment.py',
+                    '.ai/io/nerdythings/repository/repository.py',
+                    '.ai/io/nerdythings/repository/github.py',
+                    '.ai/io/nerdythings/env_vars.py',
+                    '.ai/io/nerdythings/git.py',
+                    '.ai/io/nerdythings/log.py',
+                    '.ai/io/nerdythings/github_reviewer.py']:
             # if file_extension not in vars.target_extensions:
             Log.print_yellow(f"Skipping, unsuported extension {file_extension} file {file}")
             continue
 
         try:
+            code_line = {}
             with open(file, 'r') as file_opened:
-                file_content = file_opened.read()
+                file_content = file_opened.readlines()
+
+            for line_number, line_content in enumerate(file_content, start=1):
+                code_line[line_number] = line_content.strip()
         except FileNotFoundError:
             Log.print_yellow("File was removed. Continue.", file)
             continue
@@ -56,28 +93,34 @@ def main():
             Log.print_red("Diffs are empty")
         
         Log.print_green(f"Asking AI. Content Len:{len(file_content)} Diff Len: {len(file_diffs)}")
+
+        print('dfgdfgdfgdfgdfg')
+        print(file_content) 
+        print('0999999999999999999')
+        print(file_diffs)
+        print('f000000000000000www')   
+
         response = ai.ai_request_diffs(code=file_content, diffs=file_diffs)
 
-        # log_file.write(f"-------------- {response}")
-        print('---------------------------------ggggg')
-        print(response)
-        print('---------------------------------ggggg')
+        responses = response
+        print('ffffffffffffffffffffff')
+        print(file)
+        print('ffffffffffffffffffffff')
 
-        if AiBot.is_no_issues_text(response):
-            Log.print_green("File looks good. Continue", file)
-        else:
-            responses = AiBot.split_ai_response(response)
-            if len(responses) == 0:
-                Log.print_red("Responses where not parsed:", responses)
-
-            result = False
-            for response in responses:
-                if response.line:
-                    result = post_line_comment(github=github, file=file, text=response.text, line=response.line)
-                if not result:
-                    result = post_general_comment(github=github, file=file, text=response.text)
-                if not result:
-                    raise RepositoryError("Failed to post any comments.")
+        print('merged code')
+        print(merge_code_with_diff(file_content, file_diffs))
+        print('mergedcodeeee')
+        result = False
+        import ast, re
+        responses = responses.replace('json','')
+        responses = ast.literal_eval(responses)
+        for response in responses:
+            linenumber = next((k for k, v in code_line.items() if v == response['line']), None)
+            print('dsdfsdfsdf')
+            print(linenumber)
+            print(response['comment'])
+            print('dsdfsdfsdf')
+            # result = post_line_comment(github=github, file=file, text=response['comment'], line=linenumber)
                     
 def post_line_comment(github: GitHub, file: str, text:str, line: int):
     Log.print_green("Posting line", file, line, text)
@@ -91,6 +134,7 @@ def post_line_comment(github: GitHub, file: str, text:str, line: int):
         Log.print_yellow("Posted", git_response)
         return True
     except RepositoryError as e:
+        print("Failed line comment", e)
         Log.print_red("Failed line comment", e)
         return False
 

@@ -17,11 +17,13 @@ class ChatGPT(AiBot):
                 }
             ],
             model = self.__chat_gpt_model,
-            stream = True,
+            stream = False,
         )
-        content = []
-        for chunk in stream:
-            if chunk.choices[0].delta.content:
-                content.append(chunk.choices[0].delta.content)
-        return " ".join(content)
+        print(stream)
+        # content = []
+        content = stream.choices[0].message.content
+        # for chunk in stream:
+        #     if chunk.choices[0].delta.content:
+        #         content.append(chunk.choices[0].delta.content)
+        return content
     
