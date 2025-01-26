@@ -28,17 +28,20 @@ Rules:
     "line": "another.line.example",
     "comment": "Another issue description here."
   }}
-]
-- Do not add json word in the begining.
+]- Do not add json word in the begining.
 - No Complete Code: Do not include complete code snippets.
 - Do not give complete code Snippet, any other.
+- If there are no issues, write "{no_response}" and nothing else.
 
 DIFFS:
-{diff}
+
+{diffs}
 
 Full code from the file:
 
- {code}"""
+{code}
+
+"""
 
     @abstractmethod
     def ai_request_diffs(self, code, diffs) -> str:
