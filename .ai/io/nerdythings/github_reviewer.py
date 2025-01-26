@@ -87,7 +87,9 @@ def main():
         result = False
         import ast
         # print('response after parsing - ', responses)
-        responses = ast.literal_eval(responses)
+        print(type(responses))
+        print(responses[0])
+        # responses = ast.literal_eval(responses)
         for response in responses:
             print(response)
             print(dir(response))
