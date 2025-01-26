@@ -35,6 +35,9 @@ def main():
     if len(changed_files) == 0: 
         Log.print_red("No changes between branch")
 
+    with open(file, 'r') as file_opened:
+        ignore_file = file_opened.readlines()
+
     for file in changed_files:
         Log.print_green("Checking file", file)
 
@@ -56,6 +59,9 @@ def main():
             Log.print_yellow(f"Skipping, unsuported extension {file_extension} file {file}")
             continue
 
+        if file in ignore_file:
+            continue
+
         try:
             code_line = {}
             with open(file, 'r') as file_opened:
@@ -66,9 +72,7 @@ def main():
         except FileNotFoundError:
             Log.print_yellow("File was removed. Continue.", file)
             continue
-        print('dddddddddddddd')
-        print(code_line)
-        print('dddddddddddddd')
+ 
         if len( file_content ) == 0: 
             Log.print_red("File is empty")
             continue
@@ -85,20 +89,13 @@ def main():
 
         
         responses = responses.replace('json','')
-        print('1111111111111')
-        print(responses)
-        print('111111111111')
+
         responses = ast.literal_eval(responses)
         for response in responses:
             for k, v in code_line.items():
                 if are_similar(v, response['line']):
                     linenumber = k
                     break
-
-            print('dsdfsdfsdf')
-            print(response['line'])
-            print(response['comment'])
-            print(linenumber)
 
             # Retry mechanism
             attempt = 0
@@ -117,8 +114,6 @@ def main():
             if not result:
                 print(f"Failed to post comment after {max_attempts} attempts for line {linenumber + attempt - 1}")
 
-            print(result)
-            print('dsdfsdfsdf')
                     
 def post_line_comment(github: GitHub, file: str, text:str, line: int):
     Log.print_green("Posting line", file, line, text)
