@@ -60,6 +60,7 @@ def main():
             continue
 
         if file in ignore_file:
+            print(f'Not checking the file - {file}')
             continue
 
         try:
@@ -99,7 +100,7 @@ def main():
                         if are_similar(v, response['line']):
                             linenumber = k
                             break
-                        
+
                     result = post_line_comment(github=github, file=file, text=response['comment'], line=linenumber)
                     print(result)
                     print('dsdfsdfsdf')
