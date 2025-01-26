@@ -61,7 +61,7 @@ def main():
             Log.print_yellow(f"Skipping, unsuported extension {file_extension} file {file}")
             continue
 
-        if file in ignore_file:
+        if file_extension_1 in ignore_file:
             print(f'Not checking the file - {file}')
             continue
 
