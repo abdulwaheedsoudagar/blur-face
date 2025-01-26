@@ -94,9 +94,9 @@ def main():
         responses = responses.replace('json','')
         responses = ast.literal_eval(responses)
         for response in responses:
-            print(response)
-            print(dir(response))
-            if response.line:
+            # print(response)
+            # print(dir(response))
+            # if response.line:
                 print('dsdfsdfsdf')
                 print(response.text['line'])
                 print(response.text['comment'])
