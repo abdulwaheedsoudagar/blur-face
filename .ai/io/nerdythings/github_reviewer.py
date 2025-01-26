@@ -77,25 +77,12 @@ def main():
         print(response)
         print('---------------------------------ggggg')
 
-        # if AiBot.is_no_issues_text(response):
-        #     Log.print_green("File looks good. Continue", file)
-        # else:
         responses = response
-        # if len(responses) == 0:
-        #     Log.print_red("Responses where not parsed:", responses)
 
         result = False
         import ast, re
-        # print('response after parsing - ', responses)
-        print(type(responses))
-        
-        
-        # responses = re.sub(r":.*?undefined.*?\.?\]", "", responses)
         responses = responses.replace('json','')
         responses = ast.literal_eval(responses)
-        print(type(responses))
-        print(responses)
-        print(responses[0])
         for response in responses:
             linenumber = next((k for k, v in code_line.items() if v == response['line']), None)
             print('dsdfsdfsdf')
@@ -120,6 +107,7 @@ def post_line_comment(github: GitHub, file: str, text:str, line: int):
         Log.print_yellow("Posted", git_response)
         return True
     except RepositoryError as e:
+        print("Failed line comment", e)
         Log.print_red("Failed line comment", e)
         return False
 
