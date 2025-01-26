@@ -68,6 +68,12 @@ def main():
         
         Log.print_green(f"Asking AI. Content Len:{len(file_content)} Diff Len: {len(file_diffs)}")
 
+        print('dfgdfgdfgdfgdfg')
+        print(file_content) 
+        print('0999999999999999999')
+        print(file_diffs)
+        print('f000000000000000www')   
+
         response = ai.ai_request_diffs(code=file_content, diffs=file_diffs)
 
         responses = response
