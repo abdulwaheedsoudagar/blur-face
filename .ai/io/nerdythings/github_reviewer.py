@@ -92,21 +92,19 @@ def main():
 
             responses = ast.literal_eval(responses)
             for response in responses:
-                # linenumber = next((k for k, v in code_line.items() if normalize_string(v) == normalize_string(response['line'])), None)
+                try:
+                    # linenumber = next((k for k, v in code_line.items() if normalize_string(v) == normalize_string(response['line'])), None)
 
-                for k, v in code_line.items():
-                    if are_similar(v, response['line']):
-                        linenumber = k
-                        break
-
-                print('dsdfsdfsdf')
-                print(response['line'])
-                print(response['comment'])
-                print(linenumber)
-                
-                result = post_line_comment(github=github, file=file, text=response['comment'], line=linenumber)
-                print(result)
-                print('dsdfsdfsdf')
+                    for k, v in code_line.items():
+                        if are_similar(v, response['line']):
+                            linenumber = k
+                            break
+                        
+                    result = post_line_comment(github=github, file=file, text=response['comment'], line=linenumber)
+                    print(result)
+                    print('dsdfsdfsdf')
+                except Exception as e:
+                  print('Error issue in loop -', e)
         except Exception as e:
             print('Error issue -', e)
 
