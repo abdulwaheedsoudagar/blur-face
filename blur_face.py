@@ -20,6 +20,7 @@ blob = cv2.dnn.blobFromImage(cv2.resize(image, (300, 300)), 1.0, (300, 300), (10
 mode.setInput(blob)
 detections123555 = model.forward()
 count=0
+count=0
 
 for i in range(0, detections123555.shape[2]):
       box = detections123555[0, 0, i, 3:7] * np.array([w, h, w, h])
