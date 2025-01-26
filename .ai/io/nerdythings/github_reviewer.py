@@ -102,6 +102,9 @@ def main():
 
         import ast, re
         responses = responses.replace('json','')
+        print('1111111111111')
+        print(responses)
+        print('111111111111')
         responses = ast.literal_eval(responses)
         for response in responses:
             linenumber = next((k for k, v in code_line.items() if v == response['line']), None)
