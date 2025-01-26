@@ -95,10 +95,12 @@ def main():
             for k, v in code_line.items():
                 if are_similar(v, response['line']):
                     linenumber = k
+                    break
 
             print('dsdfsdfsdf')
             print(response['line'])
             print(response['comment'])
+            print(linenumber)
             print('dsdfsdfsdf')
             result = post_line_comment(github=github, file=file, text=response['comment'], line=linenumber)
                     
