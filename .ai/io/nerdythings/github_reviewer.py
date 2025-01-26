@@ -85,11 +85,11 @@ def main():
         #     Log.print_red("Responses where not parsed:", responses)
 
         result = False
-        import ast
+        import json
         # print('response after parsing - ', responses)
         print(type(responses))
         print(responses[0])
-        # responses = ast.literal_eval(responses)
+        responses = json.loads(responses)
         for response in responses:
             print(response)
             print(dir(response))
