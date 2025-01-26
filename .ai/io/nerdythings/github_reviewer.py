@@ -104,7 +104,7 @@ def main():
         for response in responses:
             linenumber = next((k for k, v in code_line.items() if v == response['line']), None)
             print('dsdfsdfsdf')
-            print(linenumber)
+            print(response['line'])
             print(response['comment'])
             print('dsdfsdfsdf')
             result = post_line_comment(github=github, file=file, text=response['comment'], line=linenumber)
