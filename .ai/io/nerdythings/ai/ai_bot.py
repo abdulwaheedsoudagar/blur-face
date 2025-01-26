@@ -20,15 +20,15 @@ Rules:
 - Make sure json struture is format.
 - Return the exact line which need to be comment in json format line : comment, in this format.
     example - [
-  {{
+  first dict object
     "line": "mode.setInput(blob)",
     "comment": "mode.setInput(blob) should be model.setInput(blob) to match the variable name in the earlier definition. This is a critical bug that will result in a runtime error."
-  }},
-  {{
+  ,
+  second dict object
     "line": "another.line.example",
     "comment": "Another issue description here."
-  }}
-]- Do not add json word in the begining.
+]
+- Do not add json word in the begining.
 - No Complete Code: Do not include complete code snippets.
 - Do not give complete code Snippet, any other.
 - If there are no issues, write "{no_response}" and nothing else.
