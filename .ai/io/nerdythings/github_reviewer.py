@@ -34,10 +34,15 @@ def main():
         file_extension = file_extension.lstrip('.')
         Log.print_yellow(f"file_extensionfile_extensionfile_extension {file_extension_1}")
         print('vars.target_extensionsvars.target_extensions',vars.target_extensions)
-        if file in ['.ai/io/nerdythings/ai/ai_bot.py','.ai/io/nerdythings/ai/chat_gpt.py','.ai/io/nerdythings/ai/line_comment.py',
-                                '.ai/io/nerdythings/repository/repository.py','.ai/io/nerdythings/repository/github.py'
-                                ,'.ai/io/nerdythings/env_vars.py','.ai/io/nerdythings/git.py','.ai/io/nerdythings/log.py',
-                                '.ai/io/nerdythings/github_reviewer.py']:
+        if file in ['.ai/io/nerdythings/ai/ai_bot.py',
+                    '.ai/io/nerdythings/ai/chat_gpt.py',
+                    '.ai/io/nerdythings/ai/line_comment.py',
+                    '.ai/io/nerdythings/repository/repository.py',
+                    '.ai/io/nerdythings/repository/github.py',
+                    '.ai/io/nerdythings/env_vars.py',
+                    '.ai/io/nerdythings/git.py',
+                    '.ai/io/nerdythings/log.py',
+                    '.ai/io/nerdythings/github_reviewer.py']:
             # if file_extension not in vars.target_extensions:
             Log.print_yellow(f"Skipping, unsuported extension {file_extension} file {file}")
             continue
@@ -66,7 +71,9 @@ def main():
         response = ai.ai_request_diffs(code=file_content, diffs=file_diffs)
 
         responses = response
-
+        print('ffffffffffffffffffffff')
+        print(responses)
+        print('ffffffffffffffffffffff')
         result = False
         import ast, re
         responses = responses.replace('json','')
