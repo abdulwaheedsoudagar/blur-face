@@ -76,37 +76,39 @@ def main():
         if len( file_content ) == 0: 
             Log.print_red("File is empty")
             continue
-
-        file_diffs = Git.get_diff_in_file(remote_name=remote_name, head_ref=vars.head_ref, base_ref=vars.base_ref, file_path=file)
-        if len( file_diffs ) == 0: 
-            Log.print_red("Diffs are empty")
-        
-        Log.print_green(f"Asking AI. Content Len:{len(file_content)} Diff Len: {len(file_diffs)}")
-
-        response = ai.ai_request_diffs(code=file_content, diffs=file_diffs)
-
-        responses = response
-
-        
-        responses = responses.replace('json','')
-
-        responses = ast.literal_eval(responses)
-        for response in responses:
-            # linenumber = next((k for k, v in code_line.items() if normalize_string(v) == normalize_string(response['line'])), None)
-
-            for k, v in code_line.items():
-                if are_similar(v, response['line']):
-                    linenumber = k
-                    break
-
-            print('dsdfsdfsdf')
-            print(response['line'])
-            print(response['comment'])
-            print(linenumber)
+        try:
+            file_diffs = Git.get_diff_in_file(remote_name=remote_name, head_ref=vars.head_ref, base_ref=vars.base_ref, file_path=file)
+            if len( file_diffs ) == 0: 
+                Log.print_red("Diffs are empty")
             
-            result = post_line_comment(github=github, file=file, text=response['comment'], line=linenumber)
-            print(result)
-            print('dsdfsdfsdf')
+            Log.print_green(f"Asking AI. Content Len:{len(file_content)} Diff Len: {len(file_diffs)}")
+
+            response = ai.ai_request_diffs(code=file_content, diffs=file_diffs)
+
+            responses = response
+
+            
+            responses = responses.replace('json','')
+
+            responses = ast.literal_eval(responses)
+            for response in responses:
+                # linenumber = next((k for k, v in code_line.items() if normalize_string(v) == normalize_string(response['line'])), None)
+
+                for k, v in code_line.items():
+                    if are_similar(v, response['line']):
+                        linenumber = k
+                        break
+
+                print('dsdfsdfsdf')
+                print(response['line'])
+                print(response['comment'])
+                print(linenumber)
+                
+                result = post_line_comment(github=github, file=file, text=response['comment'], line=linenumber)
+                print(result)
+                print('dsdfsdfsdf')
+        except Exception as e:
+            print('Error issue -', e)
 
                     
 def post_line_comment(github: GitHub, file: str, text:str, line: int):
