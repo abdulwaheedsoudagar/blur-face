@@ -9,12 +9,16 @@ from log import Log
 from env_vars import EnvVars
 from repository.github import GitHub
 from repository.repository import RepositoryError
+from difflib import SequenceMatcher
 
 separator = "\n\n----------------------------------------------------------------------\n\n"
 log_file = open('output.txt', 'a')
 
 def normalize_string(s):
     return re.sub(r'\\+', r'\\', s.replace('\\"', '"').replace("\\'", "'"))
+
+def are_similar(a, b, threshold=0.97):
+    return SequenceMatcher(None, a, b).ratio() > threshold
 
 def main():
     vars = EnvVars()
@@ -86,7 +90,12 @@ def main():
         print('111111111111')
         responses = ast.literal_eval(responses)
         for response in responses:
-            linenumber = next((k for k, v in code_line.items() if normalize_string(v) == normalize_string(response['line'])), None)
+            # linenumber = next((k for k, v in code_line.items() if normalize_string(v) == normalize_string(response['line'])), None)
+
+            for k, v in code_line.items():
+                if are_similar(v, response['line']):
+                    linenumber = k
+
             print('dsdfsdfsdf')
             print(response['line'])
             print(response['comment'])
