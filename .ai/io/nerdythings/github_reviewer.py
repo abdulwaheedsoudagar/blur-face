@@ -35,7 +35,7 @@ def main():
     if len(changed_files) == 0: 
         Log.print_red("No changes between branch")
 
-    with open(file, 'r') as file_opened:
+    with open('.ai/io/nerdythings/checkignore.txt', 'r') as file_opened:
         ignore_file = file_opened.readlines()
 
     for file in changed_files:
