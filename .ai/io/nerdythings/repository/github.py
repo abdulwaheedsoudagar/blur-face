@@ -1,7 +1,8 @@
 import requests
 from repository.repository import Repository, RepositoryError
 
-class GitHub(Repository):
+
+class GitHub(Repository): 
 
     def __init__(self, token, repo_owner, repo_name, pull_number):
         self.token = token
@@ -15,11 +16,12 @@ class GitHub(Repository):
 
     def post_comment_to_line(self, text, commit_id, file_path, line):
         headers = self.__header_accept_json | self.__header_authorization
+        print('file_pathfile_pathfile_path',file_path)
         body = {
             "body": text,
             "commit_id": commit_id,
             "path" : file_path,
-            "position" : line
+            "line" : line
         }
         response = requests.post(self.__url_add_comment, json = body, headers = headers)
         if response.status_code == 200 or response.status_code == 201:

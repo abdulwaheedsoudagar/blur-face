@@ -1,4 +1,6 @@
 import os
+import ast
+import re
 from git import Git 
 from pathlib import Path
 from ai.chat_gpt import ChatGPT
@@ -7,35 +9,16 @@ from log import Log
 from env_vars import EnvVars
 from repository.github import GitHub
 from repository.repository import RepositoryError
+from difflib import SequenceMatcher
 
 separator = "\n\n----------------------------------------------------------------------\n\n"
 log_file = open('output.txt', 'a')
 
-def merge_code_with_diff(file_content, diff):
-    original_lines = [line.strip("\n") for line in file_content]
-    merged_code = []
-    diff_lines = diff.split("\n")
-    original_index = 0
+def normalize_string(s):
+    return re.sub(r'\\+', r'\\', s.replace('\\"', '"').replace("\\'", "'"))
 
-    for line in diff_lines:
-        if line.startswith("@@"):
-            # Context marker, e.g., @@ -17,21 +17,16 @@
-            merged_code.append(line)
-        elif line.startswith("-"):
-            # Removed line
-            merged_code.append(f"- {original_lines[original_index]}")
-            original_index += 1
-        elif line.startswith("+"):
-            # Added line
-            merged_code.append(f"+ {line[1:].strip()}")
-        else:
-            # Unchanged line
-            if original_index < len(original_lines):
-                merged_code.append(f"  {original_lines[original_index]}")
-                original_index += 1
-
-    return "\n".join(merged_code)
-
+def are_similar(a, b, threshold=0.97):
+    return SequenceMatcher(None, a, b).ratio() > threshold
 
 def main():
     vars = EnvVars()
@@ -51,6 +34,11 @@ def main():
     Log.print_green("Found changes in files", changed_files)
     if len(changed_files) == 0: 
         Log.print_red("No changes between branch")
+
+    with open('.ai/io/nerdythings/checkignore.txt', 'r') as file_opened:
+        ignore_file = [line.strip() for line in file_opened.readlines()]
+
+    print('ignore_fileignore_file - ',ignore_file)
 
     for file in changed_files:
         Log.print_green("Checking file", file)
@@ -73,6 +61,10 @@ def main():
             Log.print_yellow(f"Skipping, unsuported extension {file_extension} file {file}")
             continue
 
+        if file_extension_1 in ignore_file:
+            print(f'Not checking the file - {file}')
+            continue
+
         try:
             code_line = {}
             with open(file, 'r') as file_opened:
@@ -83,44 +75,42 @@ def main():
         except FileNotFoundError:
             Log.print_yellow("File was removed. Continue.", file)
             continue
-
+ 
         if len( file_content ) == 0: 
             Log.print_red("File is empty")
             continue
+        try:
+            file_diffs = Git.get_diff_in_file(remote_name=remote_name, head_ref=vars.head_ref, base_ref=vars.base_ref, file_path=file)
+            if len( file_diffs ) == 0: 
+                Log.print_red("Diffs are empty")
+            
+            Log.print_green(f"Asking AI. Content Len:{len(file_content)} Diff Len: {len(file_diffs)}")
 
-        file_diffs = Git.get_diff_in_file(remote_name=remote_name, head_ref=vars.head_ref, base_ref=vars.base_ref, file_path=file)
-        if len( file_diffs ) == 0: 
-            Log.print_red("Diffs are empty")
-        
-        Log.print_green(f"Asking AI. Content Len:{len(file_content)} Diff Len: {len(file_diffs)}")
+            response = ai.ai_request_diffs(code=file_content, diffs=file_diffs)
 
-        print('dfgdfgdfgdfgdfg')
-        print(file_content) 
-        print('0999999999999999999')
-        print(file_diffs)
-        print('f000000000000000www')   
+            responses = response
 
-        response = ai.ai_request_diffs(code=file_content, diffs=file_diffs)
+            
+            responses = responses.replace('json','')
 
-        responses = response
-        print('ffffffffffffffffffffff')
-        print(file)
-        print('ffffffffffffffffffffff')
+            responses = ast.literal_eval(responses)
+            for response in responses:
+                try:
+                    # linenumber = next((k for k, v in code_line.items() if normalize_string(v) == normalize_string(response['line'])), None)
 
-        print('merged code')
-        print(merge_code_with_diff(file_content, file_diffs))
-        print('mergedcodeeee')
-        result = False
-        import ast, re
-        responses = responses.replace('json','')
-        responses = ast.literal_eval(responses)
-        for response in responses:
-            linenumber = next((k for k, v in code_line.items() if v == response['line']), None)
-            print('dsdfsdfsdf')
-            print(linenumber)
-            print(response['comment'])
-            print('dsdfsdfsdf')
-            # result = post_line_comment(github=github, file=file, text=response['comment'], line=linenumber)
+                    for k, v in code_line.items():
+                        if are_similar(v, response['line']):
+                            linenumber = k
+                            break
+
+                    result = post_line_comment(github=github, file=file, text=response['comment'], line=linenumber)
+                    print(result)
+                    print('dsdfsdfsdf')
+                except Exception as e:
+                  print('Error issue in loop -', e)
+        except Exception as e:
+            print('Error issue -', e)
+
                     
 def post_line_comment(github: GitHub, file: str, text:str, line: int):
     Log.print_green("Posting line", file, line, text)

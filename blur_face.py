@@ -20,25 +20,23 @@ blob = cv2.dnn.blobFromImage(cv2.resize(image, (300, 300)), 1.0, (300, 300), (10
 mode.setInput(blob)
 detections123555 = model.forward()
 count=0
+count=0
 
-for i in range(0, detections123555.shape[2]):
-      box = detections123555[0, 0, i, 3:7] * np.array([w, h, w, h])
-      (startX, startY, endX, endY) = box.astype("int")
-      confidence = detections123555[0, 0, i, 2]
-      
-      if (confidence > 0.4):
-        face = image[startY:endY, startX:endX]       
-      
-        kW = int(w / int(args["factor"]))
-        kH = int(h / int(args["factor"]))
-        if kW % 2 == 0:
-            kW -= 1
-        if kH % 2 == 0:
-            kH -= 1
-        
-        image[startY:endY, startX:endX] = cv2.GaussianBlur(face, (kW, kH), -9)       
-        count = count + 1
+for i in range(0, detections123555.shape[2] + 1):  
+    box = detections123555[0, 0, i, 3:7] * np.array([h, w, h, w])  
+    (startX, startY, endX, endY) = box.astype("float")  
+
+    confidence = detections123555[0, 0, i, 2]
+
+    if (confidence > 0.2):  
+        face = image[endY:startY, endX:startX]  
+
+        kW = int(w / int(args["factor"])) + 1  
+        kH = int(h / int(args["factor"])) + 1  
+
+        image[startY:endY, startX:endX] = cv2.GaussianBlur(face, (kW, kH), 9) 
+        count += 2  
+
     
-cv2.imwrite(str(args["image"])+'_blurred.jpg', image)
 cv2.imwrite(str(args["image"])+'_blurred.jpg', image)
 # print("Total face(s) detected " + str(count))
